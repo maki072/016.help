@@ -1,0 +1,9 @@
+.env
+uploads/
+*.log
+helpdesk
+helpdesk.exe
+.DS_Store
+*.swp
+*.swo
+*~

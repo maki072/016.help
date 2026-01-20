@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/base64"
 	"fmt"
 	"helpdesk/internal/auth"
 	"helpdesk/internal/db"

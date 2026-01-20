@@ -18,6 +18,8 @@ This is a multi-tenant helpdesk system built in Go with Telegram bot integration
 - Production deployment on Debian 12/13
 - Code pushed to Git, pulled and executed on server
 
+**Important:** Debian 12/13 ships with Go 1.19 which is too old. The project requires Go 1.21+. Use the deployment script or see [INSTALL_GO.md](INSTALL_GO.md) for manual installation of Go 1.23.6.
+
 ## Development Commands
 
 ### Running the Application

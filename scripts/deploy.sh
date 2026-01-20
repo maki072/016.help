@@ -27,7 +27,28 @@ fi
 
 echo "2. Установка зависимостей..."
 apt update
-apt install -y git golang-go postgresql postgresql-contrib
+apt install -y git postgresql postgresql-contrib wget
+
+# Install Go 1.23.6 (Debian repo has old version)
+GO_VERSION="1.23.6"
+GO_ARCH="linux-amd64"
+if ! command -v go &> /dev/null || [[ $(go version | grep -oP '(?<=go)\d+\.\d+' | head -1) < "1.21" ]]; then
+    echo "Установка Go ${GO_VERSION}..."
+    wget -q "https://go.dev/dl/go${GO_VERSION}.${GO_ARCH}.tar.gz" -O /tmp/go.tar.gz
+    rm -rf /usr/local/go
+    tar -C /usr/local -xzf /tmp/go.tar.gz
+    rm /tmp/go.tar.gz
+
+    # Add to PATH if not already there
+    if ! grep -q "/usr/local/go/bin" /etc/profile; then
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
+    fi
+    export PATH=$PATH:/usr/local/go/bin
+
+    echo "Go $(go version) установлен"
+else
+    echo "Go уже установлен: $(go version)"
+fi
 
 echo "3. Настройка PostgreSQL..."
 # Генерация случайного пароля

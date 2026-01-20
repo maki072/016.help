@@ -57,9 +57,12 @@ func GetCalendarService(orgID int) (*calendar.Service, error) {
 	}
 
 	oauthToken := &oauth2.Token{
-		AccessToken:  token.AccessToken,
-		RefreshToken: token.RefreshToken,
-		TokenType:    "Bearer",
+		AccessToken: token.AccessToken,
+		TokenType:   "Bearer",
+	}
+
+	if token.RefreshToken != nil {
+		oauthToken.RefreshToken = *token.RefreshToken
 	}
 
 	if token.Expiry != nil {

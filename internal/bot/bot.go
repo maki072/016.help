@@ -291,7 +291,7 @@ func handleCallback(callback *tgbotapi.CallbackQuery) {
 }
 
 func handleTicketAction(action string, ticketID int, chatID int64, callback *tgbotapi.CallbackQuery) {
-	ticket, err := db.GetTicketByID(ticketID)
+	_, err := db.GetTicketByID(ticketID)
 	if err != nil {
 		sendMessage(chatID, "Тикет не найден.")
 		return

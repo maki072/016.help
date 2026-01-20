@@ -26,6 +26,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	user, err := db.GetUserByEmail(email)
 	if err != nil || user == nil {
+		fmt.Printf("Login failed: user not found or error - email: %s, err: %v\n", email, err)
 		renderTemplate(w, "login.html", map[string]interface{}{
 			"Error": "Неверный email или пароль",
 		})
@@ -33,6 +34,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.PasswordHash == nil || !auth.CheckPassword(password, *user.PasswordHash) {
+		fmt.Printf("Login failed: password check failed - email: %s, hash exists: %v\n", email, user.PasswordHash != nil)
 		renderTemplate(w, "login.html", map[string]interface{}{
 			"Error": "Неверный email или пароль",
 		})

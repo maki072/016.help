@@ -37,7 +37,8 @@ func main() {
 	}
 
 	// Create uploads directory
-	if err := os.MkdirAll("uploads", 0755); err != nil {
+	uploadDir := getEnv("UPLOAD_DIR", "uploads")
+	if err := os.MkdirAll(uploadDir, 0755); err != nil {
 		log.Fatalf("Failed to create uploads directory: %v", err)
 	}
 
